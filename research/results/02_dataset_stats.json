@@ -1,0 +1,60 @@
+{
+  "experiment": "02_dataset_exploration",
+  "source_revision": "4ebe32f42f55af618a2b2e03ace526da67504a29",
+  "seed": 42,
+  "batch_size": 32,
+  "dataset": {
+    "events": 1107226,
+    "profiles": 1000,
+    "customers_with_events": 1000
+  },
+  "sequence_length": {
+    "count": 1000.0,
+    "mean": 1107.226,
+    "std": 704.199588173683,
+    "min": 21.0,
+    "25%": 596.5,
+    "50%": 1008.0,
+    "75%": 1488.25,
+    "90%": 1995.6000000000001,
+    "95%": 2428.05,
+    "99%": 3256.829999999998,
+    "max": 4609.0
+  },
+  "event_counts": {
+    "app": 619217,
+    "transaction": 455449,
+    "communication": 27632,
+    "trading": 4928
+  },
+  "label_schemas": {
+    "aml.parquet": "user_id: string not null\nobserved_through: timestamp[us] not null\nlabel: int8 not null",
+    "churn_6m.parquet": "user_id: string not null\neval_ts: timestamp[us] not null\nlabel: int8 not null",
+    "comm_uplift.parquet": "user_id: string not null\ncampaign_id: string not null\nts: timestamp[us] not null\ntreated: int8 not null\ny0: int8 not null\ny1: int8 not null",
+    "default_12m.parquet": "user_id: string not null\neval_ts: timestamp[us] not null\nlabel: int8 not null",
+    "fraud.parquet": "user_id: string not null\nts: timestamp[us] not null\nlabel: int8 not null",
+    "ltv_positive.parquet": "user_id: string not null\neval_ts: timestamp[us] not null\nlabel: int8 not null\nprofit_6m: double not null",
+    "recurring.parquet": "user_id: string not null\nts: timestamp[us] not null\nseries_id: string not null\nlabel: int8 not null"
+  },
+  "random_batching": {
+    "useful_positions": 1107226,
+    "allocated_positions": 3001176,
+    "padding_waste_pct": 63.106928750596424,
+    "useful_attention_pairs": 1721350578,
+    "allocated_attention_pairs": 9510756456,
+    "attention_waste_pct": 81.90101296396817
+  },
+  "length_sorted_batching": {
+    "useful_positions": 1107226,
+    "allocated_positions": 1172392,
+    "padding_waste_pct": 5.558379791059642,
+    "useful_attention_pairs": 1721350578,
+    "allocated_attention_pairs": 1995911592,
+    "attention_waste_pct": 13.756171120028249
+  },
+  "limitations": [
+    "Event positions only; not token positions or measured GPU FLOPs",
+    "One seeded permutation",
+    "Globally sorted idealized baseline; not actual event-count sharding"
+  ]
+}
