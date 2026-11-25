@@ -1,5 +1,50 @@
 # pragmatiq
 
+## Research extension: scalable and explainable transaction foundation models
+
+This fork extends [Dynamiq Pragmatiq](https://github.com/dynamiq-ai/pragmatiq), an independent implementation inspired by [Revolut PRAGMA](https://arxiv.org/abs/2604.08649). Original attribution and documentation are preserved below. Our objective is a reproducible short research preprint, contingent on experimental evidence.
+
+### Upstream baseline and proposed contributions
+
+| Challenge | Upstream solution | Our extension or evaluation | Status |
+|---|---|---|---|
+| Variable sequence lengths | Event-count sharding, token-budget batching, packed attention | Controlled ablations and hierarchical compute-aware batching | Event-level simulation complete; extension planned |
+| Data scale | Parquet, LMDB, parallel tokenization | Distributed preprocessing, partitioned indexes, memory-mapped storage | Planned |
+| Distributed training | Fabric/DDP, BF16 | FSDP2 and rank-balanced scheduling | Planned |
+| Representation | Field-aware tokenizer, TimeRoPE | Merchant hashing, continuous numerical features, hybrid positional encoding | Planned |
+| Adaptation | Frozen probes, native LoRA | Full SFT, multi-horizon hazards, forgetting and calibration | Planned |
+| Explainability | Customer/event representations | SAE concepts, integrated gradients and perturbation validation | Planned |
+| Inference | Offline embeddings, ONNX/Triton | Event embedding caching, cross-request batching, quantization | Planned |
+| Architecture comparison | Hierarchical encoder | Matched IBM TabFormer encoder vs NVIDIA decoder | Planned |
+
+Existing upstream techniques are not our novel contributions. Proposed extensions are hypotheses, not validated findings. Novelty relative to related literature must be established before submission.
+
+### Experiment log
+
+| Experiment | Evidence | Result | Status |
+|---|---|---|---|
+| 01: Colab nano replication | [Metrics](research/results/baseline_quickstart.json) | 1,000 synthetic users, 30 steps, 210.87 s; MLM loss 7.5971 to 7.2745; ROC-AUC 0.623 vs 0.487; reported PR-AUC 0.195 vs 0.046 | Completed smoke test |
+| 02: Padding simulation | [Code](research/experiments/02_dataset_exploration.py), [results](research/results/02_dataset_stats.json) | 1,107,226 events; random vs globally sorted batches of 32: padding waste 63.11% to 5.56%; hypothetical dense attention waste 81.90% to 13.76% | Completed simulation |
+| 03: Pipeline decomposition | [Code](research/experiments/03_pipeline_decomposition.py), [runner](research/colab/03_pipeline_runner.ipynb) | Stage runtime, memory, embeddings and probe metrics | Running; results pending |
+
+Experiment 01 is a synthetic smoke test on Tesla T4 with reported BF16 AMP and SDPA; no native BF16 acceleration or FlashAttention-2. Small test set (254), weak baseline, no random encoder control. Experiment 02 is a seeded event-level simulation with globally sorted batches, not actual upstream sharding or measured GPU speedup. No production-scale or predictive-superiority claims.
+
+### Research questions and preprint plan
+
+- Efficiency: does compute-aware scheduling improve useful throughput, step variance and memory over existing packed token-budget batching?
+- Predictive utility: how do encoder and decoder compare on matched IBM data, compute and leakage-safe evaluation? How do frozen, LoRA and full SFT compare?
+- Interpretability: do SAE features and integrated gradients recover validated financial behaviors?
+- Serving: does independent event caching preserve outputs and reduce latency?
+
+Focus the short paper on the strongest supported contributions. Structure: abstract, related work, methods, datasets and evaluation, results and ablations, limitations, conclusion. Use multiple seeds, uncertainty estimates, matched controls, historical tokenizer/pretraining boundaries and point-in-time evaluation. Report negative results and preserve configurations, hardware, revisions and aggregate metrics. Do not publish private financial data or credentials.
+
+See [research roadmap](research/README.md), [scripts](research/experiments), [notebooks](research/notebooks), [Colab runners](research/colab) and [results](research/results).
+
+---
+
+## Original upstream documentation
+
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/dynamiq-ai/pragmatiq/main/docs/assets/pragmatiq-social.png" alt="pragmatiq: open-source banking financial model stack" width="780">
 </p>
