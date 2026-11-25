@@ -27,7 +27,7 @@ Existing upstream techniques are not our novel contributions. Proposed extension
 | 02: Padding simulation | [Code](research/experiments/02_dataset_exploration.py), [results](research/results/02_dataset_stats.json) | 1,107,226 events; random vs globally sorted batches of 32: padding waste 63.11% to 5.56%; hypothetical dense attention waste 81.90% to 13.76% | Completed simulation |
 | 03: Pipeline decomposition | [Code](research/experiments/03_pipeline_decomposition.py), [results](research/results/03_pipeline_metrics.json) | CPU: 554.39 s; synth 15.62 s, tokenize 110.71 s, pretrain 36.91 s, embed 228.45 s, probe 162.69 s; 1,000 × 64 embeddings; ROC-AUC 0.562, reported PR-AUC 0.095 | Completed smoke test |
 | 04: Field-aware tokenizer | [Code](research/experiments/04_tokenizer_analysis.py), [results](research/results/04_tokenizer_metrics.json) | 1,974 vocabulary IDs; 37 fields (32 categorical, 3 numerical, 2 text); 436,758 event tokens across 28,287 events in first 25 users; mean 15.44 tokens/event; merchant + device ID account for 58.6% of sampled tokens | Completed learning experiment |
-| 05: Parquet and LMDB | [Code](research/experiments/05_storage_analysis.py), [runner](research/colab/05_storage_runner.ipynb) | Verify shard manifests, event-count bands, indexed retrieval and grouped reads | Ready to run |
+| 05: Parquet and LMDB | [Code](research/experiments/05_storage_analysis.py), [results](research/results/05_storage_metrics.json) | 17,344,772 event tokens, 5 shards (26,687,875 bytes), LMDB files 647,168 bytes; 32 sampled users: individual retrieval 3.626 s, grouped 2.117 s, index lookup 0.598 ms; array equality passed | Completed learning experiment |
 
 Experiment 01 is a synthetic smoke test on Tesla T4 with reported BF16 AMP and SDPA; no native BF16 acceleration or FlashAttention-2. Small test set (254), weak baseline, no random encoder control. Experiment 02 is a seeded event-level simulation with globally sorted batches, not actual upstream sharding or measured GPU speedup. No production-scale or predictive-superiority claims.
 
@@ -38,6 +38,8 @@ The initial six-hour session is primarily a hands-on study of the upstream imple
 Experiment 03 ran on CPU (torch 2.14.1+cpu), not the T4 of Experiment 01. Its extra full-history embedding stage and possible training randomness prevent a controlled hardware or predictive comparison. Embedding and cutoff-aware probe accounted for 70.6% of its runtime; this is specific to the short smoke test.
 
 Experiment 04 motivates a future comparison of BPE, identifier hashing, categorical embeddings and upstream frozen text embeddings. The first 25 users are not a representative random sample; the tokenizer was fitted on the same synthetic data, so zero unknown values is not evidence of generalization. Token counts exclude model-added special tokens. These observations reproduce upstream behavior rather than establish a novel contribution.
+
+Experiment 05 confirms storage/index consistency; 700 of 1,000 users occupy band 513–2,048 events. Grouped retrieval was about 1.71x faster in one uncontrolled timing pass; cache and ordering effects prevent a benchmark claim. No new storage method is claimed.
 
 ### Research questions and preprint plan
 
