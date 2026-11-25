@@ -1,0 +1,48 @@
+{
+  "source_revision": "65a05a9fb931269b22eafdd9d4f749efae6a2528",
+  "config": {
+    "n_users": 1000,
+    "steps": 30,
+    "data_seed": 42,
+    "token_budget": 8192,
+    "model_size": "nano",
+    "flash_disabled": "1"
+  },
+  "environment": {
+    "torch": "2.14.1+cpu",
+    "gpu": null
+  },
+  "raw_events": 1107226,
+  "stage_seconds": {
+    "synthesize": 15.621945909000033,
+    "tokenize": 110.70814416200005,
+    "pretrain": 36.91476970199983,
+    "embed_full_history": 228.45262520000028,
+    "probe_at_eval_cutoff": 162.68838538399996
+  },
+  "total_stage_seconds": 554.3858703570002,
+  "pretrain_peak_allocated_bytes": null,
+  "embedding_summary": {
+    "n_users": 1000,
+    "dim": 64
+  },
+  "probe": {
+    "probe_model": "gbdt",
+    "probe_auc": 0.5619154508043397,
+    "probe_pr_auc": 0.09455316260698397,
+    "probe_accuracy": 0.952755905511811,
+    "n_test": 254,
+    "prevalence": 0.04373522458628842,
+    "staleness_window": null,
+    "staleness_us": 0,
+    "baseline_auc": 0.48671904227459784,
+    "baseline_pr_auc": 0.045722607155197145
+  },
+  "limitations": [
+    "Single run, no warmup-controlled benchmark",
+    "Probe includes separate cutoff-aware embedding extraction",
+    "Full-history embeddings not used as risk features",
+    "Probe cutoff alone does not establish leakage-free pretraining or tokenizer fitting",
+    "Peak allocated memory excludes reserved memory and other processes"
+  ]
+}
