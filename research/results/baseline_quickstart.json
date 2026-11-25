@@ -1,0 +1,56 @@
+{
+  "source": "User-reported Colab execution; not independently reproduced",
+  "config": {
+    "n_users": 1000,
+    "model_size": "nano",
+    "max_steps": 30,
+    "seed": 42,
+    "attention_backend": "not independently confirmed",
+    "precision": "BF16 AMP"
+  },
+  "runtime_seconds": 210.86985458,
+  "training": [
+    {
+      "step": 1,
+      "loss": 7.5971,
+      "mlm_acc": 0,
+      "tokens_per_second": 5848
+    },
+    {
+      "step": 10,
+      "loss": 7.5166,
+      "mlm_acc": 0,
+      "tokens_per_second": 33943
+    },
+    {
+      "step": 20,
+      "loss": 7.3259,
+      "mlm_acc": 0.004,
+      "tokens_per_second": 48207
+    },
+    {
+      "step": 30,
+      "loss": 7.2745,
+      "mlm_acc": 0.006,
+      "tokens_per_second": 56141
+    }
+  ],
+  "probe": {
+    "probe_model": "gbdt",
+    "probe_auc": 0.6228956228956228,
+    "probe_pr_auc": 0.1946429976543346,
+    "probe_accuracy": 0.9566929133858267,
+    "n_test": 254,
+    "prevalence": 0.04373522458628842,
+    "baseline_auc": 0.48671904227459784,
+    "baseline_pr_auc": 0.045722607155197145
+  },
+  "limitations": [
+    "Synthetic data",
+    "Short smoke test; no convergence claim",
+    "Small test set",
+    "GPU model not reported",
+    "No random encoder control",
+    "No matched decoder comparison"
+  ]
+}
