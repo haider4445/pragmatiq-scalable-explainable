@@ -1,0 +1,136 @@
+{
+  "source_revision": "40371c6864b51a85324765552c92dcd7eec25b3f",
+  "manifest": {
+    "bands": [
+      8,
+      32,
+      128,
+      512,
+      2048,
+      8192,
+      1000000
+    ],
+    "max_events_per_user": 6500,
+    "n_shards": 5,
+    "n_users": 1000,
+    "tokenizer_hash": "4d573a3df6da97b0859059e5ac70e7287b86f9d1c13f616468fd6ed700efc13a",
+    "total_events": 1107226,
+    "total_tokens": 17344772
+  },
+  "bands": [
+    {
+      "band": 0,
+      "upper_events": 8,
+      "users": 0,
+      "events": 0,
+      "tokens": 0,
+      "min_events": null,
+      "max_events": null
+    },
+    {
+      "band": 1,
+      "upper_events": 32,
+      "users": 2,
+      "events": 48,
+      "tokens": 669,
+      "min_events": 21,
+      "max_events": 27
+    },
+    {
+      "band": 2,
+      "upper_events": 128,
+      "users": 43,
+      "events": 3954,
+      "tokens": 56686,
+      "min_events": 45,
+      "max_events": 126
+    },
+    {
+      "band": 3,
+      "upper_events": 512,
+      "users": 163,
+      "events": 53395,
+      "tokens": 809924,
+      "min_events": 131,
+      "max_events": 512
+    },
+    {
+      "band": 4,
+      "upper_events": 2048,
+      "users": 700,
+      "events": 810420,
+      "tokens": 12843864,
+      "min_events": 517,
+      "max_events": 2038
+    },
+    {
+      "band": 5,
+      "upper_events": 8192,
+      "users": 92,
+      "events": 239409,
+      "tokens": 3633629,
+      "min_events": 2049,
+      "max_events": 4609
+    },
+    {
+      "band": 6,
+      "upper_events": 1000000,
+      "users": 0,
+      "events": 0,
+      "tokens": 0,
+      "min_events": null,
+      "max_events": null
+    }
+  ],
+  "shards": [
+    {
+      "name": "band1_shard00000.parquet",
+      "rows": 2,
+      "row_groups": 1,
+      "bytes": 9538
+    },
+    {
+      "name": "band2_shard00000.parquet",
+      "rows": 43,
+      "row_groups": 1,
+      "bytes": 122888
+    },
+    {
+      "name": "band3_shard00000.parquet",
+      "rows": 163,
+      "row_groups": 1,
+      "bytes": 1412969
+    },
+    {
+      "name": "band4_shard00000.parquet",
+      "rows": 700,
+      "row_groups": 1,
+      "bytes": 19201040
+    },
+    {
+      "name": "band5_shard00000.parquet",
+      "rows": 92,
+      "row_groups": 1,
+      "bytes": 5941440
+    }
+  ],
+  "storage": {
+    "parquet_bytes": 26687875,
+    "lmdb_file_bytes": 647168
+  },
+  "sample": {
+    "users": 32,
+    "distinct_shards": 3,
+    "index_lookup_seconds": 0.0005981629999496363,
+    "individual_get_seconds": 3.6262763370000357,
+    "grouped_get_seconds": 2.1173559470000782,
+    "array_equality_verified": true,
+    "cache_budget_bytes": 268435456
+  },
+  "limitations": [
+    "Single timing pass; OS cache and execution order confound comparison",
+    "Shard cache can retain one shard larger than its budget",
+    "LMDB file size is not virtual map size or resident memory",
+    "Synthetic data, no distributed benchmark"
+  ]
+}
